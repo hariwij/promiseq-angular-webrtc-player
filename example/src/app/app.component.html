@@ -1,0 +1,131 @@
+<div class="app-container">
+
+    <div class="controls-section">
+        <!-- URL Input -->
+        <div class="url-input-section">
+            <div class="input-group">
+                <input type="url"
+                       [(ngModel)]="inputUrl"
+                       placeholder="Enter WebRTC stream URL"
+                       class="url-input" />
+                <button (click)="validateAndLoadUrl()"
+                        class="load-button"
+                        [disabled]="!inputUrl.trim()">
+                    Load
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Player Section -->
+    <div class="player-section"
+         *ngIf="isValidUrl">
+        <webrtc-player #webrtcPlayer
+                       class="custom-player"
+                       [streamUrl]="validatedUrl"
+                       [autoPlay]="playerConfig.autoPlay"
+                       [muted]="playerConfig.muted"
+                       [authToken]="playerConfig.authToken"
+                       (onReady)="onPlayerReady($event)"
+                       (onError)="onPlayerError($event)"
+                       (onTrack)="onPlayerTrack($event)"
+                       (playStateChanged)="onPlayStateChanged($event)">
+        </webrtc-player>
+    </div>
+
+    <!-- Player Configuration -->
+    <div class="config-section"
+         *ngIf="isValidUrl">
+        <h3>Player Configuration</h3>
+        <div class="config-grid">
+            <div class="config-item">
+                <label>Stream Name:</label>
+                <input type="text"
+                       [(ngModel)]="playerConfig.name"
+                       class="config-input">
+            </div>
+
+            <div class="config-item">
+                <label>Auth Token:</label>
+                <input type="text"
+                       [(ngModel)]="playerConfig.authToken"
+                       class="config-input"
+                       placeholder="Optional JWT token">
+            </div>
+
+            <div class="config-item checkbox-item">
+                <label>
+                    <input type="checkbox"
+                           [(ngModel)]="playerConfig.isRecording">
+                    Show Recording Indicator
+                </label>
+            </div>
+
+            <div class="config-item checkbox-item">
+                <label>
+                    <input type="checkbox"
+                           [(ngModel)]="playerConfig.showToolBar">
+                    Show Toolbar
+                </label>
+            </div>
+
+            <div class="config-item checkbox-item">
+                <label>
+                    <input type="checkbox"
+                           [(ngModel)]="playerConfig.autoPlay">
+                    Auto Play
+                </label>
+            </div>
+
+            <div class="config-item checkbox-item">
+                <label>
+                    <input type="checkbox"
+                           [(ngModel)]="playerConfig.muted">
+                    Muted
+                </label>
+            </div>
+
+            <div class="config-item checkbox-item">
+                <label>
+                    <input type="checkbox"
+                           [(ngModel)]="playerConfig.controls">
+                    Show Video Controls
+                </label>
+            </div>
+        </div>
+
+        <!-- External Player Controls -->
+        <div class="external-controls">
+            <h4>External Controls</h4>
+            <div class="control-buttons">
+                <button (click)="playStream()"
+                        class="control-btn play-btn">
+                    Play
+                </button>
+                <button (click)="pauseStream()"
+                        class="control-btn pause-btn">
+                    Pause
+                </button>
+                <button (click)="togglePlayPause()"
+                        class="control-btn toggle-btn">
+                    Toggle
+                </button>
+                <button (click)="stopStream()"
+                        class="control-btn stop-btn">
+                    ⏹️ Stop
+                </button>
+                <button (click)="restartStream()"
+                        class="control-btn restart-btn">
+                    Restart
+                </button>
+            </div>
+            <div class="status-info">
+                <span class="status-label">Player Status:</span>
+                <span class="status-value"
+                      [class.playing]="isPlayerPlaying">
+                    {{ isPlayerPlaying ? 'Playing' : 'Paused' }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

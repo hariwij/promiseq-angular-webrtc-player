@@ -1,0 +1,30 @@
+<div class="webrtc-player-container {{containerClass}}">
+    <!-- Loading State -->
+    <div class="loading-overlay {{loaderClass}}"
+         *ngIf="isLoading">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-overlay {{errorClass}}"
+         *ngIf="errorMessage && !isLoading">
+        <div class="error-content">
+            <h3>{{ errorMessage }}</h3>
+        </div>
+    </div>
+
+    <!-- Video Element -->
+    <video #videoElement
+           class="video-element {{videoClass}}"
+           [controls]="false"
+           [muted]="muted"
+           [autoplay]="autoPlay"
+           (loadedmetadata)="onVideoLoadedMetadata()"
+           (play)="onVideoPlay()"
+           (pause)="onVideoPause()"
+           (error)="onVideoError($event)"
+           playsinline>
+    </video>
+</div>

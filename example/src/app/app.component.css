@@ -1,0 +1,249 @@
+.app-container {
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.controls-section {
+    margin-bottom: 20px;
+}
+
+.url-input-section {
+    margin-bottom: 30px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.url-input {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.url-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.load-button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.load-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.load-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Configuration Section */
+.config-section {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.config-section h3 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.config-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.config-item label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 14px;
+}
+
+.config-input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.config-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.checkbox-item {
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.checkbox-item input[type="checkbox"] {
+    margin: 0;
+    transform: scale(1.2);
+}
+
+/* External Controls */
+.external-controls {
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+.external-controls h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.play-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.play-btn:hover {
+    background-color: #218838;
+}
+
+.pause-btn {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.pause-btn:hover {
+    background-color: #e0a800;
+}
+
+.toggle-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.toggle-btn:hover {
+    background-color: #138496;
+}
+
+.stop-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.stop-btn:hover {
+    background-color: #c82333;
+}
+
+.restart-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.restart-btn:hover {
+    background-color: #5a6268;
+}
+
+.status-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.status-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.status-value {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #6c757d;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.status-value.playing {
+    background-color: #28a745;
+}
+
+/* Player Section */
+.player-section {
+    background-color: #000;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .config-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .control-buttons {
+        justify-content: center;
+    }
+
+    .control-btn {
+        flex: 1;
+        min-width: 80px;
+    }
+}

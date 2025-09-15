@@ -1,0 +1,43 @@
+{
+    "name": "@promiseq/angular-webrtc-player",
+    "version": "1.0.0",
+    "description": "Angular WebRTC Player for promiseQ",
+    "main": "bundles/promiseq-angular-webrtc-player.umd.js",
+    "module": "fesm2022/promiseq-angular-webrtc-player.mjs",
+    "typings": "index.d.ts",
+    "author": "hariwij",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hariwij/promiseq-angular-webrtc-player.git"
+    },
+    "keywords": [
+        "@promiseq",
+        "angular",
+        "webrtc",
+        "streaming",
+        "video",
+        "player"
+    ],
+    "scripts": {
+        "build": "ng-packagr -p ng-package.json",
+        "pack": "npm run build && npm pack ./dist",
+        "publish": "npm run build && npm publish ./dist"
+    },
+    "peerDependencies": {
+        "@angular/common": "^17.0.0",
+        "@angular/core": "^17.0.0"
+    },
+    "devDependencies": {
+        "@angular/common": "^17.0.0",
+        "@angular/core": "^17.0.0",
+        "@angular/compiler": "^17.0.0",
+        "@angular/compiler-cli": "^17.0.0",
+        "ng-packagr": "^17.0.0",
+        "typescript": "~5.2.0"
+    },
+    "files": [
+        "dist/**/*",
+        "README.md"
+    ]
+}

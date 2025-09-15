@@ -5,7 +5,7 @@ Angular WebRTC Player for promiseQ
 ## Installation
 
 ```bash
-npm install @promiseq/angular-webrtc-player
+npm install promiseq-angular-webrtc-player
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @promiseq/angular-webrtc-player
 ```typescript
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { WebrtcPlayerModule } from "@promiseq/angular-webrtc-player";
+import { WebrtcPlayerModule } from "promiseq-angular-webrtc-player";
 
 import { AppComponent } from "./app.component";
 

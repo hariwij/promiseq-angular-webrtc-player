@@ -1,5 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-import { WebrtcPlayerComponent } from "@promiseq/angular-webrtc-player";
+import { WebrtcPlayerComponent } from "promiseq-angular-webrtc-player";
 
 @Component({
     selector: "app-root",

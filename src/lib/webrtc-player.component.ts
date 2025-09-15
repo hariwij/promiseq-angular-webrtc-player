@@ -1,8 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 
 // Import the WebRTC Reader class
-// @ts-ignore
-import { PromiseQWebRTCReader } from "./promiseq-webrtc.js";
+import { PromiseQWebRTCReader } from "./promiseq-webrtc-types";
 
 @Component({
     selector: "webrtc-player",

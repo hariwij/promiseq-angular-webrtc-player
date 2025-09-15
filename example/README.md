@@ -1,12 +1,12 @@
 # Angular WebRTC Player - Example App
 
-This example application demonstrates how to use the `@promiseq/angular-webrtc-player` npm package in a real Angular application.
+This example application demonstrates how to use the `promiseq-angular-webrtc-player` npm package in a real Angular application.
 
 ## Setup Instructions
 
 ### 1. Install Dependencies
 
-First, make sure you have the @promiseq/angular-webrtc-player package built and available:
+First, make sure you have the promiseq-angular-webrtc-player package built and available:
 
 ```bash
 # Navigate to the package root and build it
@@ -75,7 +75,7 @@ This example app shows how to:
 
 ```typescript
 import { Component, ViewChild } from "@angular/core";
-import { WebrtcPlayerComponent } from "@promiseq/angular-webrtc-player";
+import { WebrtcPlayerComponent } from "promiseq-angular-webrtc-player";
 
 @Component({
     selector: "app-root",
@@ -95,7 +95,6 @@ export class AppComponent {
 }
 ```
 
-
 ## Building for Production
 
 ```bash
@@ -108,7 +107,7 @@ The built application will be in the `dist/` folder.
 
 ### Module not found errors
 
--   Make sure the @promiseq/angular-webrtc-player package is built and installed
+-   Make sure the promiseq-angular-webrtc-player package is built and installed
 -   Check that the package is properly linked if using local development
 
 ### WebRTC connection issues

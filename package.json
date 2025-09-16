@@ -1,6 +1,6 @@
 {
     "name": "promiseq-angular-webrtc-player",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Angular WebRTC Player for promiseQ",
     "main": "bundles/promiseq-angular-webrtc-player.umd.js",
     "module": "fesm2022/promiseq-angular-webrtc-player.mjs",

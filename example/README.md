@@ -83,7 +83,7 @@ import { WebrtcPlayerComponent } from "promiseq-angular-webrtc-player";
 })
 export class AppComponent {
     @ViewChild("player") player!: WebrtcPlayerComponent;
-    streamUrl = "ws://localhost:8889/stream/live/whep";
+    streamUrl = "http://localhost:8889/stream/live/whep";
 
     onStreamReady(data: any) {
         console.log("Stream ready:", data);

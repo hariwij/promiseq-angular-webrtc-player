@@ -31,7 +31,7 @@ export class AppModule {}
 ### 2. Use the Component
 
 ```html
-<webrtc-player [streamUrl]="'ws://localhost:8889/stream/live/whep'" [autoPlay]="true" [muted]="false" [authToken]="'your-auth-token'" [containerClass]="'custom-container'" [videoClass]="'custom-video'" [loaderClass]="'custom-loader'" [errorClass]="'custom-error'" (onReady)="onStreamReady($event)" (onError)="onStreamError($event)" (onTrack)="onStreamTrack($event)" (playStateChanged)="onPlayStateChanged($event)"> </webrtc-player>
+<webrtc-player [streamUrl]="'http://localhost:8889/stream/live/whep'" [autoPlay]="true" [muted]="false" [authToken]="'your-auth-token'" [containerClass]="'custom-container'" [videoClass]="'custom-video'" [loaderClass]="'custom-loader'" [errorClass]="'custom-error'" (onReady)="onStreamReady($event)" (onError)="onStreamError($event)" (onTrack)="onStreamTrack($event)" (playStateChanged)="onPlayStateChanged($event)"> </webrtc-player>
 ```
 
 ### 3. Component Events

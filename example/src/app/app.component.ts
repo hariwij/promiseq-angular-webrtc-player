@@ -16,12 +16,8 @@ export class AppComponent {
 
     // WebRTC Player Configuration
     playerConfig = {
-        name: "WebRTC Stream",
-        isRecording: false,
-        showToolBar: true,
         autoPlay: true,
         muted: false,
-        controls: true,
         authToken: "",
     };
 

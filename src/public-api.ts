@@ -4,4 +4,3 @@
 
 export * from "./lib/webrtc-player.component";
 export * from "./lib/webrtc-player.module";
-export * from "./lib/promiseq-webrtc-types";

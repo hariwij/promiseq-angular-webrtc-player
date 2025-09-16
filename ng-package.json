@@ -6,5 +6,8 @@
     "assets": [
         "src/lib/*.js",
         "src/lib/*.d.ts"
+    ],
+    "allowedNonPeerDependencies": [
+        "."
     ]
 }

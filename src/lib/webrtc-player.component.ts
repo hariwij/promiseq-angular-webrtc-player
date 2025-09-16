@@ -1,7 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
-
-// Import the WebRTC Reader class
-import { PromiseQWebRTCReader } from "./promiseq-webrtc-types";
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, ChangeDetectorRef, NgZone } from "@angular/core";
+import { PromiseQWebRTCReader } from "./promiseq-webrtc";
 
 @Component({
     selector: "webrtc-player",
@@ -37,7 +35,7 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     private currentStream: MediaStream | null = null;
     private timeInterval: any;
 
-    constructor() {}
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         // Start time update interval
@@ -48,7 +46,10 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
     ngAfterViewInit(): void {
         if (this.streamUrl && this.autoPlay) {
-            this.startStream();
+            // Use setTimeout to defer the startStream call to the next tick
+            setTimeout(() => {
+                this.startStream();
+            }, 0);
         }
     }
 
@@ -66,40 +67,47 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         this.cleanup();
-        this.isLoading = true;
-        this.errorMessage = "";
-        this.isConnected = false;
 
-        try {
-            this.webrtcReader = new PromiseQWebRTCReader({
-                url: this.streamUrl,
-                authToken: this.authToken,
-                onTrack: (evt: RTCTrackEvent) => {
-                    console.log("Track received:", evt.track.kind);
-                    this.handleTrack(evt);
-                    this.onTrack.emit(evt);
-                },
-                onReady: (data: any) => {
-                    console.log("Stream ready:", data);
-                    this.handleStreamReady(data);
-                    this.onReady.emit(data);
-                },
-                onError: (error: string) => {
-                    console.error("WebRTC error:", error);
-                    this.handleError(error);
-                },
-            });
-        } catch (error) {
-            console.error("Error starting stream:", error);
-            this.handleError("Failed to start stream");
-        }
+        // Use setTimeout to ensure state changes happen in the next tick
+        setTimeout(() => {
+            this.isLoading = true;
+            this.errorMessage = "";
+            this.isConnected = false;
+            this.cdr.detectChanges(); // Manually trigger change detection
+
+            try {
+                this.webrtcReader = new PromiseQWebRTCReader({
+                    url: this.streamUrl,
+                    authToken: this.authToken,
+                    onTrack: (evt: RTCTrackEvent) => {
+                        console.log("Track received:", evt.track.kind);
+                        this.handleTrack(evt);
+                        this.onTrack.emit(evt);
+                    },
+                    onReady: (data: any) => {
+                        console.log("Stream ready:", data);
+                        this.handleStreamReady(data);
+                        this.onReady.emit(data);
+                    },
+                    onError: (error: string) => {
+                        console.error("WebRTC error:", error);
+                        this.handleError(error);
+                    },
+                });
+            } catch (error) {
+                console.error("Error starting stream:", error);
+                this.handleError("Failed to start stream");
+            }
+        }, 0);
     }
 
     public stopStream(): void {
         this.cleanup();
-        this.isPlaying = false;
-        this.isConnected = false;
-        this.playStateChanged.emit(false);
+        this.ngZone.run(() => {
+            this.isPlaying = false;
+            this.isConnected = false;
+            this.playStateChanged.emit(false);
+        });
     }
 
     public play(): void {
@@ -107,8 +115,10 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.videoElement.nativeElement
                 .play()
                 .then(() => {
-                    this.isPlaying = true;
-                    this.playStateChanged.emit(true);
+                    this.ngZone.run(() => {
+                        this.isPlaying = true;
+                        this.playStateChanged.emit(true);
+                    });
                 })
                 .catch((error) => {
                     console.error("Error playing video:", error);
@@ -122,8 +132,10 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     public pause(): void {
         if (this.videoElement && this.videoElement.nativeElement) {
             this.videoElement.nativeElement.pause();
-            this.isPlaying = false;
-            this.playStateChanged.emit(false);
+            this.ngZone.run(() => {
+                this.isPlaying = false;
+                this.playStateChanged.emit(false);
+            });
         }
     }
 
@@ -136,37 +148,49 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     private handleTrack(evt: RTCTrackEvent): void {
-        if (evt.streams && evt.streams.length > 0) {
-            this.currentStream = evt.streams[0];
-            if (this.videoElement && this.videoElement.nativeElement) {
-                this.videoElement.nativeElement.srcObject = this.currentStream;
+        this.ngZone.run(() => {
+            if (evt.streams && evt.streams.length > 0) {
+                this.currentStream = evt.streams[0];
+                if (this.videoElement && this.videoElement.nativeElement) {
+                    this.videoElement.nativeElement.srcObject = this.currentStream;
+                }
             }
-        }
+        });
     }
 
     private handleStreamReady(data: any): void {
-        this.isLoading = false;
-        this.isConnected = true;
+        this.ngZone.run(() => {
+            this.isLoading = false;
+            this.isConnected = true;
 
-        if (data.streams && data.streams.length > 0) {
-            this.currentStream = data.streams[0];
-            if (this.videoElement && this.videoElement.nativeElement) {
-                this.videoElement.nativeElement.srcObject = this.currentStream;
+            if (data.streams && data.streams.length > 0) {
+                this.currentStream = data.streams[0];
+                if (this.videoElement && this.videoElement.nativeElement) {
+                    this.videoElement.nativeElement.srcObject = this.currentStream;
 
-                if (this.autoPlay) {
-                    this.play();
+                    if (this.autoPlay) {
+                        this.play();
+                    }
                 }
             }
-        }
+
+            // Manually trigger change detection to ensure UI updates
+            this.cdr.detectChanges();
+        });
     }
 
     private handleError(error: string): void {
-        this.isLoading = false;
-        this.errorMessage = error;
-        this.isConnected = false;
-        this.isPlaying = false;
-        this.onError.emit(error);
-        this.playStateChanged.emit(false);
+        this.ngZone.run(() => {
+            this.isLoading = false;
+            this.errorMessage = error;
+            this.isConnected = false;
+            this.isPlaying = false;
+            this.onError.emit(error);
+            this.playStateChanged.emit(false);
+
+            // Manually trigger change detection
+            this.cdr.detectChanges();
+        });
     }
 
     private cleanup(): void {
@@ -193,13 +217,17 @@ export class WebrtcPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     onVideoPlay(): void {
-        this.isPlaying = true;
-        this.playStateChanged.emit(true);
+        this.ngZone.run(() => {
+            this.isPlaying = true;
+            this.playStateChanged.emit(true);
+        });
     }
 
     onVideoPause(): void {
-        this.isPlaying = false;
-        this.playStateChanged.emit(false);
+        this.ngZone.run(() => {
+            this.isPlaying = false;
+            this.playStateChanged.emit(false);
+        });
     }
 
     onVideoError(event: any): void {

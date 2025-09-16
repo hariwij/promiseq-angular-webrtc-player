@@ -39,34 +39,11 @@
         <h3>Player Configuration</h3>
         <div class="config-grid">
             <div class="config-item">
-                <label>Stream Name:</label>
-                <input type="text"
-                       [(ngModel)]="playerConfig.name"
-                       class="config-input">
-            </div>
-
-            <div class="config-item">
                 <label>Auth Token:</label>
                 <input type="text"
                        [(ngModel)]="playerConfig.authToken"
                        class="config-input"
                        placeholder="Optional JWT token">
-            </div>
-
-            <div class="config-item checkbox-item">
-                <label>
-                    <input type="checkbox"
-                           [(ngModel)]="playerConfig.isRecording">
-                    Show Recording Indicator
-                </label>
-            </div>
-
-            <div class="config-item checkbox-item">
-                <label>
-                    <input type="checkbox"
-                           [(ngModel)]="playerConfig.showToolBar">
-                    Show Toolbar
-                </label>
             </div>
 
             <div class="config-item checkbox-item">
@@ -82,14 +59,6 @@
                     <input type="checkbox"
                            [(ngModel)]="playerConfig.muted">
                     Muted
-                </label>
-            </div>
-
-            <div class="config-item checkbox-item">
-                <label>
-                    <input type="checkbox"
-                           [(ngModel)]="playerConfig.controls">
-                    Show Video Controls
                 </label>
             </div>
         </div>

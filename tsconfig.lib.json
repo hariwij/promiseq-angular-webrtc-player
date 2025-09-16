@@ -9,6 +9,7 @@
         "declarationMap": true,
         "inlineSources": true,
         "types": [],
+        "allowJs": true,
         "lib": ["dom", "es2022"]
     },
     "exclude": ["src/test.ts", "**/*.spec.ts"]
